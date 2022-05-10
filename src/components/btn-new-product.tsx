@@ -27,7 +27,6 @@ export const NewProductButton = () => {
   };
 
   return (
-    <div className="flex gap flex-col justify-between items-center">
       <form onSubmit={handleSubmit(handleAddNewTask)} action="">
         <div className="flex justify-between items-center gap-4">
           <div className="form-group mb-6 flex-none w-48">
@@ -91,10 +90,9 @@ export const NewProductButton = () => {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <input type="submit" className="mr-auto bg-green-400 p-2 rounded text-white font-bold w-48" value="NOVO PRODUTO" />
+          <input type="submit" className="bg-green-400 p-2 rounded text-white text-sm font-bold w-32" value="NOVO PRODUTO" />
           <p className="text-xl font-bold"> <strong className="text-blue-400">Total: </strong>{currencyFormat(total)}</p>
         </div>
       </form>
-    </div>
   )
 }
