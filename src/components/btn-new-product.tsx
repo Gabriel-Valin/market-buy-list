@@ -12,7 +12,7 @@ interface IFormInput {
 }
 
 export const NewProductButton = () => {
-  const { register, handleSubmit } = useForm<IFormInput>();
+  const { register, handleSubmit, setValue } = useForm<IFormInput>();
   const { addProduct, sumItems, products } = useProductList();
 
   const [total, setTotal] = useState(0)
@@ -24,12 +24,15 @@ export const NewProductButton = () => {
 
   const handleAddNewTask: SubmitHandler<IFormInput> = data => {
     addProduct({ ...data, id: uuid(), price: data.price / 100});
+    setValue('product', '')
+    setValue('price', 0)
+    setValue('qty', 0)
   };
 
   return (
       <form onSubmit={handleSubmit(handleAddNewTask)} action="">
         <div className="flex justify-between items-center gap-4">
-          <div className="form-group mb-6 flex-none w-48">
+          <div className="form-group mb-6 flex-none w-32">
             <label htmlFor="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700">Produto</label>
             <input {...register('product', { required: true })}
               type="text" className="form-control
@@ -69,7 +72,7 @@ export const NewProductButton = () => {
               focus:text-gray-700 focus:bg-white focus:border-green-400 focus:outline-none" id="exampleInputEmail2"
               aria-describedby="emailHelp" placeholder="R$ 103,40" />
           </div>
-          <div className="form-group mb-6 flex-auto w-24">
+          <div className="form-group mb-6 flex-auto w-12">
             <label htmlFor="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700">Qtd/Peso</label>
             <input {...register('qty', { required: true, valueAsNumber: true, min: 0 })} type="number" className="form-control
               block
