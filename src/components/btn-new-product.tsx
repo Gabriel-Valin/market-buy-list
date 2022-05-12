@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useProductList } from "../hooks/useProducts"
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, FormProvider, Control } from "react-hook-form";
 import { uuid } from 'uuidv4';
 import { currencyFormat } from "../services/currency-format";
 
@@ -12,14 +12,14 @@ interface IFormInput {
 }
 
 export const NewProductButton = () => {
-  const { register, handleSubmit, setValue } = useForm<IFormInput>();
-  const { addProduct, sumItems, products } = useProductList();
+  const { register, handleSubmit, setValue } = useForm<IFormInput>({mode: 'onChange'});
+  const { addProduct, sumItems } = useProductList();
 
+  
   const [total, setTotal] = useState(0)
 
   useEffect(() => {
     setTotal(sumItems)
-    console.log(products)
   }, [sumItems])
 
   const handleAddNewTask: SubmitHandler<IFormInput> = data => {
@@ -30,9 +30,9 @@ export const NewProductButton = () => {
   };
 
   return (
-      <form onSubmit={handleSubmit(handleAddNewTask)} action="">
+      <form className="mt-8" onSubmit={handleSubmit(handleAddNewTask)} action="">
         <div className="flex justify-between items-center gap-4">
-          <div className="form-group mb-6 flex-none w-32">
+          <div className="form-group mb-6 w-48">
             <label htmlFor="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700">Produto</label>
             <input {...register('product', { required: true })}
               type="text" className="form-control
@@ -54,7 +54,7 @@ export const NewProductButton = () => {
           </div>
           <div className="form-group mb-6 flex-auto w-24">
             <label htmlFor="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700">Preço</label>
-            <input
+          <input
               {...register('price', { required: true,  min: 0 })} type="number" className="form-control
               block
               w-full

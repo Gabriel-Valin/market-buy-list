@@ -11,9 +11,8 @@ export const ContainerColumn = () => {
   const { products } = useProductList()
 
   return (
-    <div className="container p-4 flex flex-col max-w-6xl">
+    <div className="container justify-center p-4 flex flex-col max-w-full">
       <Title />
-      <MaxValueInput />
       <NewProductButton />
       <ProductsTable />
       <Values />
